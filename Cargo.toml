@@ -3,6 +3,29 @@ name = "hello-tonic"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "server"
+path = "src/main.rs"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[[bin]]
+name = "client_web"
+path = "src/client_web.rs"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+bytes = "1.4.0"
+http = "0.2.9"
+hyper = "0.14.24"
+prost = "0.11.8"
+tokio = { version = "1.26.0", features = ["rt-multi-thread", "macros"] }
+tonic = "0.8.3"
+tonic-web = "0.5.0"
+tower-http = { version = "0.4.0", features = ["cors"] }
+
+[build-dependencies]
+tonic-build = "0.8.4"
