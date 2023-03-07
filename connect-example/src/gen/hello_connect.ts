@@ -3,7 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { HelloReply, HelloRequest } from "./hello_pb.js";
+import { HelloReply, HelloRequest, OneofReply, OneofRequest } from "./hello_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
@@ -19,6 +19,24 @@ export const Greeter = {
       name: "SayHello",
       I: HelloRequest,
       O: HelloReply,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc helloworld.Greeter.StreamingHello
+     */
+    streamingHello: {
+      name: "StreamingHello",
+      I: HelloRequest,
+      O: HelloReply,
+      kind: MethodKind.ServerStreaming,
+    },
+    /**
+     * @generated from rpc helloworld.Greeter.OneofHello
+     */
+    oneofHello: {
+      name: "OneofHello",
+      I: OneofRequest,
+      O: OneofReply,
       kind: MethodKind.Unary,
     },
   }

@@ -261,6 +261,7 @@ dependencies = [
  "hyper",
  "prost",
  "tokio",
+ "tokio-stream",
  "tonic",
  "tonic-build",
  "tonic-web",

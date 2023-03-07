@@ -4,6 +4,8 @@ package helloworld;
 
 service Greeter {
   rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc StreamingHello(HelloRequest) returns (stream HelloReply) {}
+  rpc OneofHello (OneofRequest) returns (OneofReply) {}
 }
 
 message HelloRequest {
@@ -12,4 +14,16 @@ message HelloRequest {
 
 message HelloReply {
   string message = 1;
+}
+
+message OneofRequest {
+  optional string message = 1;
+}
+
+message OneofReply {
+  string message = 1;
+  oneof payload {
+    string str = 2;
+    int32 i32 = 3;
+  }
 }

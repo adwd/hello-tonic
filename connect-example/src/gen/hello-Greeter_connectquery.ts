@@ -5,7 +5,7 @@
 
 import { createQueryService } from "@bufbuild/connect-query";
 import { MethodKind } from "@bufbuild/protobuf";
-import { HelloReply, HelloRequest } from "./hello_pb.js";
+import { HelloReply, HelloRequest, OneofReply, OneofRequest } from "./hello_pb.js";
 
 export const typeName = "helloworld.Greeter";
 
@@ -25,3 +25,20 @@ export const sayHello = createQueryService({
     typeName: "helloworld.Greeter",
   },
 }).sayHello;
+
+/**
+ * @generated from rpc helloworld.Greeter.OneofHello
+ */
+export const oneofHello = createQueryService({
+  service: {
+    methods: {
+      oneofHello: {
+        name: "OneofHello",
+        kind: MethodKind.Unary,
+        I: OneofRequest,
+        O: OneofReply,
+      },
+    },
+    typeName: "helloworld.Greeter",
+  },
+}).oneofHello;

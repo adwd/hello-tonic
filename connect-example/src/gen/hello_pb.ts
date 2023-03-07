@@ -80,3 +80,96 @@ export class HelloReply extends Message<HelloReply> {
   }
 }
 
+/**
+ * @generated from message helloworld.OneofRequest
+ */
+export class OneofRequest extends Message<OneofRequest> {
+  /**
+   * @generated from field: optional string message = 1;
+   */
+  message?: string;
+
+  constructor(data?: PartialMessage<OneofRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "helloworld.OneofRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */, opt: true },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OneofRequest {
+    return new OneofRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OneofRequest {
+    return new OneofRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OneofRequest {
+    return new OneofRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OneofRequest | PlainMessage<OneofRequest> | undefined, b: OneofRequest | PlainMessage<OneofRequest> | undefined): boolean {
+    return proto3.util.equals(OneofRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message helloworld.OneofReply
+ */
+export class OneofReply extends Message<OneofReply> {
+  /**
+   * @generated from field: string message = 1;
+   */
+  message = "";
+
+  /**
+   * @generated from oneof helloworld.OneofReply.payload
+   */
+  payload: {
+    /**
+     * @generated from field: string str = 2;
+     */
+    value: string;
+    case: "str";
+  } | {
+    /**
+     * @generated from field: int32 i32 = 3;
+     */
+    value: number;
+    case: "i32";
+  } | { case: undefined; value?: undefined } = { case: undefined };
+
+  constructor(data?: PartialMessage<OneofReply>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "helloworld.OneofReply";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "str", kind: "scalar", T: 9 /* ScalarType.STRING */, oneof: "payload" },
+    { no: 3, name: "i32", kind: "scalar", T: 5 /* ScalarType.INT32 */, oneof: "payload" },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): OneofReply {
+    return new OneofReply().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): OneofReply {
+    return new OneofReply().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): OneofReply {
+    return new OneofReply().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: OneofReply | PlainMessage<OneofReply> | undefined, b: OneofReply | PlainMessage<OneofReply> | undefined): boolean {
+    return proto3.util.equals(OneofReply, a, b);
+  }
+}
+
