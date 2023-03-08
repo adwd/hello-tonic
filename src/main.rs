@@ -43,19 +43,27 @@ impl Greeter for MyGreeter {
         req: Request<HelloRequest>,
     ) -> Result<Response<Self::StreamingHelloStream>, Status> {
         println!("StreamingHello");
-        println!("Got a request from {:?}", req.remote_addr());
+        println!("Got a request from {:?}", req.remote_addr().unwrap());
+
+        let message = req.into_inner().name.unwrap_or("Tonic".to_owned());
 
         // creating infinite stream with requested message
-        let repeat = std::iter::repeat(HelloReply {
-            message: req.into_inner().name.unwrap_or("Tonic".to_owned()),
-        });
+        let repeat = std::iter::repeat(());
         let mut stream = Box::pin(tokio_stream::iter(repeat).throttle(Duration::from_millis(200)));
 
         // spawn and channel are required if you want handle "disconnect" functionality
         // the `out_stream` will not be polled after client disconnect
         let (tx, rx) = mpsc::channel(128);
+        let mut count = 0;
         tokio::spawn(async move {
-            while let Some(item) = stream.next().await {
+            while let Some(_) = stream.next().await {
+                if count >= 20 {
+                    break;
+                }
+                count += 1;
+                let item = HelloReply {
+                    message: format!("Streaming {}: {}", message, count),
+                };
                 match tx.send(Result::<_, Status>::Ok(item)).await {
                     Ok(_) => {
                         // item (server response) was queued to be send to client

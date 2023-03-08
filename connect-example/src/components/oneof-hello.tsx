@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { oneofHello } from '../gen/hello-Greeter_connectquery';
-import { OneofReply } from '../gen/hello_pb';
 
 export function OneofHello() {
   const [value, setValue] = useState('');
