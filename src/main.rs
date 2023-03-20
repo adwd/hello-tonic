@@ -9,7 +9,9 @@ use hello::{
 };
 use tokio::sync::mpsc;
 use tokio_stream::{wrappers::ReceiverStream, StreamExt};
-use tonic::{codegen::futures_core::Stream, transport::Server, Request, Response, Status};
+use tonic::{
+    codegen::futures_core::Stream, transport::Server, Request, Response, Status, Streaming,
+};
 use tonic_web::GrpcWebLayer;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -81,6 +83,40 @@ impl Greeter for MyGreeter {
         Ok(Response::new(
             Box::pin(output_stream) as Self::StreamingHelloStream
         ))
+    }
+
+    async fn client_streaming_hello(
+        &self,
+        request_stream: Request<Streaming<HelloRequest>>,
+    ) -> Result<Response<HelloReply>, Status> {
+        println!("ClientStreamingHello");
+        println!(
+            "Got a request from {:?}",
+            request_stream.remote_addr().unwrap()
+        );
+
+        let mut stream = request_stream.into_inner();
+        let mut buf = vec![];
+
+        while let Some(req) = stream.next().await {
+            match req {
+                Ok(hello_req) => {
+                    if hello_req.name() == "end" {
+                        break;
+                    }
+                    println!("{}", &hello_req.name());
+                    hello_req.name.map(|n| buf.push(n));
+                }
+                Err(e) => {
+                    println!("error: {e:?}");
+                    break;
+                }
+            }
+        }
+
+        Ok(Response::new(HelloReply {
+            message: format!("received messages: {}", buf.join(", ")),
+        }))
     }
 
     async fn oneof_hello(
