@@ -20,7 +20,7 @@ path = "src/client_web.rs"
 [dependencies]
 bytes = "1.4.0"
 http = "0.2.9"
-hyper = "0.14.24"
+hyper = "0.14.25"
 prost = "0.11.8"
 tokio = { version = "1.26.0", features = ["rt-multi-thread", "macros"] }
 tokio-stream = "0.1.12"

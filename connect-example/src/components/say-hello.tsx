@@ -6,8 +6,12 @@ export function SayHello() {
   // console.log(x);
 
   return (
-    <pre>
-      <code>{JSON.stringify(x, null, 2)}</code>
-    </pre>
+    <>
+      <h1>say hello</h1>
+      <p>message: {x.data?.message}</p>
+      <pre>
+        <code>{JSON.stringify(x, null, 2)}</code>
+      </pre>
+    </>
   );
 }
